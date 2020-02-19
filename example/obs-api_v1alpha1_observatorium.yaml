@@ -1,7 +1,7 @@
 apiVersion: obs-api.observatorium.io/v1alpha1
 kind: Observatorium
 metadata:
-  name: observatorium-sample
+  name: observatorium-xyz
 spec:
   thanosImage: "quay.io/thanos/thanos:"
   thanosVersion: master-2020-02-13-adfef4b5
