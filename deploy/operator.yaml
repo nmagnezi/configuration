@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: observatorium-operator
+  labels:
+    control-plane: observatorium-operator
+spec:
+  selector:
+    matchLabels:
+      control-plane: observatorium-operator
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        control-plane: observatorium-operator
+    spec:
+      containers:
+      - name: observatorium-operator
+        image: quay.io/nmagnezi/observatorium-operator:latest
+        args:
+          - "--log-level=debug"
+        resources:
+          limits:
+            cpu: 1
+            memory: 600Mi
+          requests:
+            cpu: 1
+            memory: 600Mi
+      terminationGracePeriodSeconds: 10
