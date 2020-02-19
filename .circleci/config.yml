@@ -20,7 +20,7 @@ jobs:
           ./tests/e2e.sh deploy
           ./tests/e2e.sh test
   
-    tests-operator:
+  tests-operator:
     machine: true
     steps:
       - checkout
