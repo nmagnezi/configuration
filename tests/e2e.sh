@@ -18,6 +18,30 @@ deploy() {
     ./kubectl apply -f environments/dev/manifests/
 }
 
+wait_for_cr() {
+    observatorium_cr_status=""
+    target_status="Finished"
+    timeout=$true
+    interval=0
+    intervals=600
+    while [ $interval -ne $intervals ]; do
+      echo "Waiting for" $1 "currentStatus="$target_status
+      observatorium_cr_status=$(./kubectl -n observatorium get observatoria.obs-api.observatorium.io $1 -o=jsonpath='{.status.conditions[*].currentStatus}')
+      if [ "$observatorium_cr_status" = "$target_status" ]; then
+        echo $1 CR status is now: $observatorium_cr_status
+	      timeout=$false
+	      break
+	    fi
+	    sleep 1
+	    inteval+=1
+  done
+
+  if [ $timeout ]; then
+    echo "Timeout waiting for" $1 "CR status to be " $target_status
+    exit 1
+  fi
+}
+
 deploy_operator() {
     ./kubectl apply -f https://raw.githubusercontent.com/coreos/kube-prometheus/master/manifests/setup/prometheus-operator-0servicemonitorCustomResourceDefinition.yaml
     ./kubectl apply -f https://raw.githubusercontent.com/coreos/kube-prometheus/master/manifests/setup/prometheus-operator-0prometheusruleCustomResourceDefinition.yaml
@@ -33,6 +57,7 @@ deploy_operator() {
 }
 
 run_test() {
+     wait_for_cr observatorium-xyz
     ./kubectl wait --for=condition=available --timeout=10m -n observatorium deploy/minio || (./kubectl get pods --all-namespaces && exit 1)
     ./kubectl wait --for=condition=available --timeout=10m -n observatorium deploy/observatorium-xyz-thanos-query || (./kubectl get pods --all-namespaces && exit 1)
 
