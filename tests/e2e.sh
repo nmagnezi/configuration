@@ -54,10 +54,10 @@ deploy_operator() {
     ./kubectl apply -f deploy/crds
     ./kubectl apply -f deploy/
     ./kubectl apply -n observatorium -f example/
+    wait_for_cr observatorium-xyz
 }
 
 run_test() {
-     wait_for_cr observatorium-xyz
     ./kubectl wait --for=condition=available --timeout=10m -n observatorium deploy/minio || (./kubectl get pods --all-namespaces && exit 1)
     ./kubectl wait --for=condition=available --timeout=10m -n observatorium deploy/observatorium-xyz-thanos-query || (./kubectl get pods --all-namespaces && exit 1)
 
