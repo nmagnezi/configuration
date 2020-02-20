@@ -21,9 +21,9 @@ spec:
           - "--log-level=debug"
         resources:
           limits:
-            cpu: 1
+            cpu: 100M
             memory: 600Mi
           requests:
-            cpu: 1
+            cpu: 100M
             memory: 600Mi
       terminationGracePeriodSeconds: 10
