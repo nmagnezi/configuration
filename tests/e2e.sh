@@ -27,14 +27,13 @@ wait_for_cr() {
     while [ $interval -ne $intervals ]; do
       echo "Waiting for" $1 "currentStatus="$observatorium_cr_status
       observatorium_cr_status=$(./kubectl -n observatorium get observatoria.obs-api.observatorium.io $1 -o=jsonpath='{.status.conditions[*].currentStatus}')
-      echo $observatorium_cr_status
       if [ "$observatorium_cr_status" = "$target_status" ]; then
         echo $1 CR status is now: $observatorium_cr_status
 	    timeout=$false
 	    break
 	  fi
-	  sleep 1
-	  interval=$((interval+1))
+	  sleep 5
+	  interval=$((interval+5))
     done
 
     if [ $timeout ]; then

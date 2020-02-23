@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   name: observatorium-operator
   labels:
+    app.kubernetes.io/component: observatorium-operator
+    app.kubernetes.io/name: observatorium-operator
+    app.kubernetes.io/part-of: observatorium
     control-plane: observatorium-operator
 spec:
   selector:
