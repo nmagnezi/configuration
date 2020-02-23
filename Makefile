@@ -1,7 +1,5 @@
 # Image URL to use all building/pushing image targets
-IMG ?= quay.io/nmagnezi/observatorium-operator:latest
-# Produce CRDs that work back to Kubernetes 1.11 (no version conversion)
-CRD_OPTIONS ?= "crd:trivialVersions=true"
+IMG ?= quay.io/observatorium/observatorium-operator:latest
 
 # Get the currently used golang install path (in GOPATH/bin, unless GOBIN is set)
 ifeq (,$(shell go env GOBIN))
@@ -12,15 +10,15 @@ endif
 
 # Install CRDs into a cluster
 install: manifests
-	kustomize build config/crd | kubectl apply -f -
+	kubectl apply -f deploy/crds
 
 # Uninstall CRDs from a cluster
 uninstall: manifests
-	kustomize build config/crd | kubectl delete -f -
+	kubectl delete -f  deploy/crds
 
 # Generate manifests e.g. CRD, RBAC etc.
 manifests: controller-gen
-	$(CONTROLLER_GEN) $(CRD_OPTIONS) paths="./..." output:crd:artifacts:config=deploy/crds
+	$(CONTROLLER_GEN) crd paths="./..." output:crd:artifacts:config=deploy/crds
 
 # Run go fmt against code
 fmt:
