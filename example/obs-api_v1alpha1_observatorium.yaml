@@ -53,3 +53,6 @@ spec:
   thanosReceiveController:
     image: "quay.io/observatorium/thanos-receive-controller:"
     version: master-2020-02-06-b66e0c8
+  apiGateway:
+    image: "quay.io/observatorium/observatorium:"
+    version: "master-2020-01-28-e009b4a"
