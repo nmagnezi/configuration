@@ -42,6 +42,8 @@ type ObservatoriumSpec struct {
 	Store StoreSpec `json:"store"`
 	// Thanos RulerSpec
 	Rule RuleSpec `json:"rule"`
+	// API Gateway
+	ApiGateway ApiGatewaySpec `json:"apiGateway"`
 }
 
 type ObjectStorageConfig struct {
@@ -65,6 +67,12 @@ type ReceiversSpec struct {
 type StoreSpec struct {
 	// VolumeClaimTemplate
 	VolumeClaimTemplate VolumeClaimTemplate `json:"volumeClaimTemplate"`
+}
+
+type ApiGatewaySpec struct {
+	Image string `json:"image"`
+	// Tag describes the tag of Thanos receive controller to use.
+	Version string `json:"version,omitempty"`
 }
 
 type RuleSpec struct {
@@ -94,12 +102,6 @@ type QuerierCacheSpec struct {
 	Replicas *int32 `json:"replicas,omitempty"`
 	// Version of  Querier Cache image to be deployed.
 	Version string `json:"version,omitempty"`
-}
-
-type ThanosComponentSpec struct {
-	Replicas *int32 `json:"replicas,omitempty"`
-	// Resources for component pods
-	Resources v1.ResourceRequirements `json:"resources,omitempty"`
 }
 
 type Hashring struct {
