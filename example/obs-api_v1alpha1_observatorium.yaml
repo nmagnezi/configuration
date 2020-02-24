@@ -20,6 +20,7 @@ spec:
     version: master-8533a216
     replicas: 1
   store:
+    shards: 1
     volumeClaimTemplate:
       spec:
         accessModes: [ "ReadWriteOnce" ]

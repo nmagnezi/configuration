@@ -501,6 +501,9 @@ spec:
             store:
               description: Thanos StoreSpec
               properties:
+                shards:
+                  format: int32
+                  type: integer
                 volumeClaimTemplate:
                   description: VolumeClaimTemplate
                   properties:

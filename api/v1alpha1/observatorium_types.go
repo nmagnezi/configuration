@@ -67,6 +67,7 @@ type ReceiversSpec struct {
 type StoreSpec struct {
 	// VolumeClaimTemplate
 	VolumeClaimTemplate VolumeClaimTemplate `json:"volumeClaimTemplate"`
+	Shards              *int32              `json:"shards,omitempty"`
 }
 
 type ApiGatewaySpec struct {
@@ -117,9 +118,9 @@ type ObservatoriumStatus struct {
 	// Important: Run "make" to regenerate code after modifying this file
 }
 
+// Observatorium is the Schema for the observatoria API
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// Observatorium is the Schema for the observatoria API
 type Observatorium struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
