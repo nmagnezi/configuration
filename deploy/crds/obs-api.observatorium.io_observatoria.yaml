@@ -36,6 +36,18 @@ spec:
         spec:
           description: ObservatoriumSpec defines the desired state of Observatorium
           properties:
+            apiGateway:
+              description: API Gateway
+              properties:
+                image:
+                  type: string
+                version:
+                  description: Tag describes the tag of Thanos receive controller
+                    to use.
+                  type: string
+              required:
+              - image
+              type: object
             compact:
               description: Thanos CompactSpec
               properties:
@@ -636,6 +648,7 @@ spec:
               description: Thanos Image version
               type: string
           required:
+          - apiGateway
           - compact
           - hashrings
           - objectStorageConfig
