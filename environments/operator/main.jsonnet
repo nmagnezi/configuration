@@ -1,10 +1,7 @@
 local manifests = (import 'obs-operator.jsonnet').manifests;
 
 {
-  objects: {
-    [item]: manifests[item]
-    for item in std.objectFields(manifests)
-  },
+  objects: manifests,
   rollout: {
     apiVersion: 'workflow.kubernetes.io/v1alpha1',
     kind: 'Rollout',
